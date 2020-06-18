@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+acc_delivery_routes_admin,delivery_routes,model_res_delivery_routes,base.group_system,1,1,1,1
+acc_weekdays_admin,weekdays,model_res_weekdays,base.group_system,1,1,1,1
+acc_delivery_routes_user,delivery_routes,model_res_delivery_routes,base.group_user,1,1,0,0
+acc_weekdays_user,weekdays,model_res_weekdays,base.group_user,1,1,0,0

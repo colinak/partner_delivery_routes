@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!-- View form Weekdays -->
+    <record id="weekdays_view_form" model="ir.ui.view">
+      <field name="name">weekdays.form</field>
+      <field name="model">res.weekdays</field>
+      <field name="arch" type="xml">
+        <form string="Weekdays">
+          <sheet>
+            <group col="4">
+              <field name="name" placeholder="Día de la Semana"/>
+              <field name="active"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+  </data>
+</odoo>
