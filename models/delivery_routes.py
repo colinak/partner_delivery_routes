@@ -20,13 +20,14 @@ class DeliveryRoutes(models.Model):
         help=u"Descripción de la ruta"
     )
     partner_id = fields.Many2one(
-        'res.partner',
-        string="Repartidor"
+        'hr.employee',
+        string="Repartidor",
+        domain=[('job_id', '=', 'Repartidor')]
     )
     weekdays_ids = fields.One2many(
         'res.weekdays',
         'day_id',
-        string=u"Días"
+        string=u"Días de Visita"
     )
     active = fields.Boolean(
         string="Activo?",
