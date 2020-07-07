@@ -12,3 +12,13 @@ class ResPartner(models.Model):
         string=u"Ruta",
         help=u"Seleccione una ruta para asignar al cliente"
     )
+    partner_id = fields.Many2one(
+        'res.partner',
+        'Cliente',
+    )    
+    invoices_ids = fields.One2many(
+        'account.invoice',
+        'partner_id',
+        'Facturas',
+        help="Selecciones las facturas"
+    )

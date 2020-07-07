@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <data>
+    <template id="report_sales_closing_template">
+      <t t-call="web.html_container">
+        <t t-foreach="docs" t-as="acc">
+          <t t-call="web.external_layout">
+            <div class="page">
+              <t t-set="total_invoice_amount" t-value="0"/>
+              <h2>Cobranza</h2>
+              <div class="container" t-foreach="acc.partner_ids" t-as="p">
+                <div class="row" style="margin-bottom: 0px !important;">
+                  <div class="col-2">
+                    <strong><span>Cliente</span></strong>
+                  </div>
+                  <div name="invoice_address" class="col-4">
+                    <div>
+                      <span t-field="p.display_name"/>
+                    </div>
+                    <div>
+                      <span t-field="p.street"/>
+                    </div>
+                    <div>
+                      <span t-field="p.street2"/>
+                    </div>
+                    <div>
+                      <span t-field="p.city"/>
+                    </div>
+                  </div>
+                  <div name="invoice_address" class="col-4">
+                    <br/>
+                    <strong>RFC: </strong><span t-field="p.vat"/>
+                    <p><strong>RUTA: </strong><span t-field="p.route_id.name"/></p>
+                  </div>
+                </div>
+                <br/>
+                <table class="table table-borderless">
+                  <t t-set="total_residual_amount" t-value="0"/>
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">N° Factura</th>
+                      <th scope="col">Importe</th>
+                      <th scope="col">Adeudo</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr t-foreach="p.invoices_ids" t-as="i">
+                    <!--<tr> -->
+                      <td><span t-field="i.date_invoice"/></td>
+                      <td><span t-field="i.number"/></td>
+                      <td><span t-field="i.amount_total"/></td>
+                      <td>
+                        <span t-field="i.residual"/>
+                        <t t-set="total_residual_amount" t-value="total_residual_amount+i.residual"/>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="border-black">
+                      <td colspan="4" ><strong>Total Cliente</strong></td>
+                      <td class="text-right" >
+                        <span t-esc="total_residual_amount" 
+                          t-options='{"widget": "float", "precision": 2}'
+                        />
+                        <t t-set="total_invoice_amount" t-value="total_invoice_amount+total_residual_amount"/>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+                <br/><br/><br/>
+              </div>
+              <br/><br/><br/>
+              <div class="container">
+                <div class="row">
+                  <div class="col-10">
+                    <strong class="text-right">
+                      <span>Total Cobranza
+                    </span></strong>
+                  </div>
+                  <div class="col-2">
+                    <strong class="text-rigth">
+                      <span t-esc="total_invoice_amount" 
+                        t-options='{"widget": "float", "precision": 2}'
+                      />
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </t>
+        </t>
+      </t>
+    </template>
+
+    <!-- QWeb Reports -->
+    <report
+      id="sales_closing_report"
+      model="account.invoice.closing.report.wizard"
+      string="Corte de Ventas"
+      report_type="qweb-html"
+      name="partner_delivery_routes.report_sales_closing_template"
+      file="partner_delivery_routes.report_sales_closing_template"
+    />
+  </data>
+</odoo>

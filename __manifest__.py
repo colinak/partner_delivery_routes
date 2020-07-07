@@ -12,15 +12,18 @@
     'installable': True,
     "depends": [
         'base',
+        'account',
         'hr'
     ],
     "data": [
         'security/ir.model.access.csv',
         'data/weekdays_data.xml',
         'data/job_data.xml',
+        'report/report_sales_closing.xml',
         'views/partner_delivery_view.xml',
         'views/delivery_routes_view.xml',
-        'views/weekdays_view.xml'
+        'views/weekdays_view.xml',
+        'wizard/sales_closing_wizard.xml',
     ],
     "demo": [
     ],

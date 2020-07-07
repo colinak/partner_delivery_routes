@@ -33,3 +33,8 @@ class DeliveryRoutes(models.Model):
         string="Activo?",
         default=True
     )
+
+    _sql_constraints = {
+        ('name_unique', 'unique(name)', 
+        'Disculpe Ya Existe un Ruta con ese Nombre, Intente con Otro Nombre')        
+    }
