@@ -46,46 +46,32 @@
                   </thead>
                   <tbody>
                     <tr t-foreach="p.invoices_ids" t-as="i">
-                    <!--<tr> -->
-                      <td><span t-field="i.date_invoice"/></td>
-                      <td><span t-field="i.number"/></td>
-                      <td><span t-field="i.amount_total"/></td>
-                      <td>
-                        <span t-field="i.residual"/>
-                        <t t-set="total_residual_amount" t-value="total_residual_amount+i.residual"/>
-                      </td>
+                      <t t-if="i.state == 'open'">
+                        <td><span t-field="i.date_invoice"/></td>
+                        <td><span t-field="i.number"/></td>
+                        <td><span t-field="i.amount_total"/></td>
+                        <td>
+                          <span t-field="i.residual"/>
+                          <t t-set="total_residual_amount" t-value="total_residual_amount+i.residual"/>
+                        </td>
+                      </t>
                     </tr>
                   </tbody>
                   <tfoot>
                     <tr class="border-black">
-                      <td colspan="4" ><strong>Total Cliente</strong></td>
+                      <td colspan="4" ><strong>Total Adeudado</strong></td>
                       <td class="text-right" >
-                        <span t-esc="total_residual_amount" 
-                          t-options='{"widget": "float", "precision": 2}'
-                        />
+                        <strong>
+                          <span t-esc="total_residual_amount"
+                           t-options='{"widget": "float", "precision": 2}'
+                          />
+                        </strong>
                         <t t-set="total_invoice_amount" t-value="total_invoice_amount+total_residual_amount"/>
                       </td>
                     </tr>
                   </tfoot>
                 </table>
                 <br/><br/><br/>
-              </div>
-              <br/><br/><br/>
-              <div class="container">
-                <div class="row">
-                  <div class="col-10">
-                    <strong class="text-right">
-                      <span>Total Cobranza
-                    </span></strong>
-                  </div>
-                  <div class="col-2">
-                    <strong class="text-rigth">
-                      <span t-esc="total_invoice_amount" 
-                        t-options='{"widget": "float", "precision": 2}'
-                      />
-                    </strong>
-                  </div>
-                </div>
               </div>
             </div>
           </t>
