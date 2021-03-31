@@ -4,3 +4,5 @@
 from . import weekdays
 from . import delivery_routes
 from . import partner
+from . import sale_order
+from . import account_invoice

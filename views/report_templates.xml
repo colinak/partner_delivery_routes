@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+
+    <template id="inherit_external_layout_background">
+      <div class="header" style="max-width: 25%;">
+        <div class="o_background_header">
+          <div class="float-right">
+            <h3 class="mt0 text-right" t-field="company.report_header"/>
+          </div>
+          <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo"/>
+          <div class="float-left company_address">
+            <div>
+              <strong t-field="company.partner_id.name"/>
+            </div>
+            <span t-field="company.partner_id"
+              t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+          </div>
+          <!--<div class="clearfix mb8"/>-->
+        </div>
+      </div>
+
+      <div class="article o_report_layout_background" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+        <t t-call="web.address_layout"/>
+        <t t-raw="0"/>
+      </div>
+
+      <!--<div class="footer o_background_footer">-->
+        <!--<div class="text-center">-->
+          <!--<ul class="list-inline">-->
+            <!--<li t-if="company.phone" class="list-inline-item"><i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/> <span t-field="company.phone"/></li>-->
+            <!--<li t-if="company.email" class="list-inline-item"><i class="fa fa-at" role="img" aria-label="Email" title="Email"/> <span t-field="company.email"/></li>-->
+            <!--<li t-if="company.website" class="list-inline-item"><i class="fa fa-globe" role="img" aria-label="Website" title="Website"/> <span t-field="company.website"/></li>-->
+            <!--<li t-if="company.vat" class="list-inline-item"><i class="fa fa-building-o" role="img" aria-label="Fiscal number"/><t t-esc="(company.country_id.vat_label or 'Tax ID').replace(' ','\N{NO-BREAK SPACE}')"/>: <span t-esc="company.vat.replace(' ','\N{NO-BREAK SPACE}')"/></li>-->
+          <!--</ul>-->
+          <!--<div t-field="company.report_footer"/>-->
+          <!--<div t-if="report_type == 'pdf'" class="text-muted">-->
+            <!--Page:-->
+            <!--<span class="page"/>-->
+            <!--of-->
+            <!--<span class="topage"/>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+    </template>
+
+
+    
+    <template id="external_layout_inherit">
+      <t t-if="not o" t-set="o" t-value="doc"/>
+
+      <t t-if="not company">
+        <!-- Multicompany -->
+        <t t-if="company_id">
+          <t t-set="company" t-value="company_id"/>
+        </t>
+        <t t-elif="o and 'company_id' in o">
+          <t t-set="company" t-value="o.company_id.sudo()"/>
+        </t>
+        <t t-else="else">
+          <t t-set="company" t-value="res_company"/>
+        </t>
+      </t>
+
+      <t t-if="company.external_report_layout_id" t-call="partner_delivery_routes.inherit_external_layout_background">
+        <t t-raw="0"/>
+      </t>
+      <t t-else="else" t-call="partner_delivery_routes.inherit_external_layout_background"><t t-raw="0"/></t>
+    </template>
+
+
+
+    <template id="preview_header_report">
+      <t t-call="web.html_container">
+        <t t-set="o" t-value="res_company"/>
+        <t t-call="partner_delivery_routes.external_layout_inherit">
+          <div class="page">
+            <p>This is a sample of an internal report.</p>
+          </div>
+        </t>
+      </t>
+    </template>
+
+    <report id="action_report_header"
+        model="res.company"
+        name="partner_delivery_routes.preview_header_report"
+        file="partner_delivery_routes.preview_header_report"
+        string="Preview Header Report"
+        report_type="qweb-pdf"/>
+
+  </data>
+</odoo>

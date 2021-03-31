@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="inherit_report_layout_background" model="report.layout">
+      <field name="view_id" ref="partner_delivery_routes.inherit_external_layout_background"/>
+      <field name="image">/web/static/img/preview_background.png</field>
+      <field name="pdf">/web/static/pdf/preview_background.pdf</field>
+    </record>
+  </data>
+</odoo>
