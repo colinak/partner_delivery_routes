@@ -7,15 +7,12 @@ from odoo.exceptions import ValidationError
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    @api.depends('partner_id')
-    def _compute_route(self):
+    @api.onchange('partner_id')
+    def _onchange_route_id(self):
         if self.partner_id:
-            self.route_id = self.partner_id.route_id
+            self.route = self.partner_id.route_id.name
 
-    route_id = fields.Many2one(
-        'res.delivery.routes',
-        compute="_compute_route",
-        store=True,
+    route = fields.Char(
         string=u"Ruta",
         help=u"Seleccione una ruta para asignar al cliente"
     )

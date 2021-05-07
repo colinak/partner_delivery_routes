@@ -1,14 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
+
     <!-- Inherit Form view -->
+    <record id="inherit_view_order_form" model="ir.ui.view">
+      <field name="name">inherit.sale.order.form</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <field name="partner_id" position="after">
+          <field name="route" invisible="1"/>
+        </field>
+      </field>
+    </record>
+
+    <!-- Inherit Tree view -->
     <record id="inherit_view_order_tree" model="ir.ui.view">
       <field name="name">inherit.sale.order.tree</field>
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_order_tree"/>
       <field name="arch" type="xml">
         <field name="partner_id" position="after">
-          <field name="route_id" 
+          <field name="route" 
           />
         </field>
       </field>
@@ -21,11 +34,11 @@
       <field name="inherit_id" ref="sale.view_sales_order_filter"/>
       <field name="arch" type="xml">
         <field name="analytic_account_id" position="after">
-          <field name="route_id" />
+          <field name="route" />
         </field>
 
         <filter name="order_month" position="after">
-          <filter name="route" string="Ruta" domain="[]" context="{'group_by':'route_id'}" />
+          <filter name="route" string="Ruta" domain="[]" context="{'group_by':'route'}" />
         </filter>
       </field>
     </record>
@@ -38,7 +51,7 @@
     <field name="inherit_id" ref="sale.view_quotation_tree"/>
     <field name="arch" type="xml">
       <field name="partner_id" position="after">
-        <field name="route_id" 
+        <field name="route" 
         />
         </field>
       </field>
