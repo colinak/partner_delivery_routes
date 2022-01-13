@@ -135,6 +135,26 @@
       </xpath>
     </template>
 
+
+    <!-- Main template -->
+    <template id="credo_template_sale_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="partner_delivery_routes.inherit_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <report
+        id="credo_action_sale_report"
+        model="sale.order"
+        string="Pedido de Venta" 
+        name="partner_delivery_routes.credo_template_sale_report"
+        file="partner_delivery_routes.credo_template_sale_report" 
+        report_type="qweb-pdf"
+        print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"
+    />
+
     <record id="paperformat_saleorder_document" model="report.paperformat">
       <field name="name">FormartPapel Pedido de Venta</field>
       <field name="default" eval="True" />
