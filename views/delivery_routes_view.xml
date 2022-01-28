@@ -22,5 +22,57 @@
       </field>
     </record>
 
+    <!-- View tree routes -->
+    <record id="delivery_routes_view_tree" model="ir.ui.view">
+      <field name="name">delivery_routes.tree</field>
+      <field name="model">res.delivery.routes</field>
+      <field name="arch" type="xml">
+        <tree string="Delivery Routes">
+          <field name="name" placeholder="Ej: Ruta 1"/>
+          <field name="partner_id" placeholder="Seleccione"/>
+          <field name="weekdays_ids" placeholder="Seleccione" widget="many2many_tags"/>
+          <field name="active"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- View search routes -->
+    <record id="delivery_routes_view_search" model="ir.ui.view">
+      <field name="name">delivery_routes.search</field>
+      <field name="model">res.delivery.routes</field>
+      <field name="arch" type="xml">
+        <search string="Delivery Routes">
+          <field name="name" string="Name"/>
+          <field name="partner_id" string="Repartidor"/>
+          <filter string="Archivado" name="active" domain="[('active', '=', False)]"/>
+          <separator/>
+          <group  expand='0' string='Group by...'>
+            <filter string='Repartidor' name="repartidor" domain="[]" context="{'group_by': 'partner_id'}"/>
+          </group>
+        </search>
+      </field>
+    </record>
+
+    <record id="action_delivery_routes" model="ir.actions.act_window">
+      <field name="name">Delivery Routes</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.delivery.routes</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="delivery_routes_view_tree" />
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">
+          Create New Delivery Routes
+        </p>
+      </field>
+    </record>
+
+    <menuitem id="menu_delivery_route"
+      name="Delivery Routes"
+      parent="contacts.menu_localisation"
+      sequence="4"
+      action="partner_delivery_routes.action_delivery_routes"
+      groups="base.group_user"
+    />
+
   </data>
 </odoo>
