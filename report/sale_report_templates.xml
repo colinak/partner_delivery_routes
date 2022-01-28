@@ -1,146 +1,143 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
   <data>
-    <template id="inherit_report_saleorder_document" inherit_id="sale.report_saleorder_document">
-      <xpath expr="//t[@t-call='web.external_layout']" position="replace">
-          <div class="main" style="margin-top: 0px;">
-            <div class="article">
-              <t t-name="SaleTicket" style="">
-                <div name="page" 
-                  style="font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; max-width: 30%;">
-                  <div name="logo_company" align="center">
-                    <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
-                      style="padding-top: 10px; margin-top: 50px; height: auto; width: 100px; align: center;" />
-                  </div>
-                  <div style="font-size: 80%; font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; text-align: center;">
-                    <span t-esc="doc.company_id.name" />
-                    <br />
-                    <span t-esc="doc.company_id.street" />
-                    <span t-esc="doc.company_id.street2" />
-                    <br />
-                    <span t-esc="doc.company_id.city" />
-                    <span t-esc="doc.company_id.state_id.name" />
-                    <span t-esc="doc.company_id.zip" />
-                    <br />
-                    <span>RFC: </span>
-                    <t t-if="doc.company_id.vat">
-                      <span t-esc="doc.company_id.vat" />
-                    </t>
-                    <br />
-                    <span>Tel: </span>
-                    <span t-esc="doc.company_id.phone" />
-                    <br />
-                    <span t-esc="doc.date_order" />
-                  </div>
-                  <div>
-                    <table style="font-size: 80%;">
-                      <tr>
-                        <td style="padding-left:5px; padding-top: 10px; padding-right: 10px;">
-                          <strong><span t-field="doc.name"/> </strong>
-                        </td>
-                        <td>
-                          <span t-field="doc.partner_id"/>
-                        </td>
-                      </tr>
-                      <br/>
-                      <tr>
-                        <td style="padding-left:5px; padding-top: 10px; padding-right: 10px;">
-                          <strong>Vendedor: </strong>
-                        </td>
-                        <td>
-                          <span t-field="doc.route_id.partner_id"/>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
+    <template id="credo_report_saleorder_document" >
+      <div class="main" style="margin-top: 0px;">
+        <div class="article">
+          <t t-name="SaleTicket" style="">
+            <div name="page" 
+              style="font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; max-width: 30%;">
+              <div name="logo_company" align="center">
+                <img t-attf-src="data:image/*;base64,{{doc.company_id.logo}}"
+                  style="padding-top: 10px; margin-top: 50px; height: auto; width: 100px; align: center;" />
+              </div>
+              <div style="font-size: 80%; font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; text-align: center;">
+                <span t-esc="doc.company_id.name" />
+                <br />
+                <span t-esc="doc.company_id.street" />
+                <span t-esc="doc.company_id.street2" />
+                <br />
+                <span t-esc="doc.company_id.city" />
+                <span t-esc="doc.company_id.state_id.name" />
+                <span t-esc="doc.company_id.zip" />
+                <br />
+                <span>RFC: </span>
+                <t t-if="doc.company_id.vat">
+                  <span t-esc="doc.company_id.vat" />
+                </t>
+                <br />
+                <span>Tel: </span>
+                <span t-esc="doc.company_id.phone" />
+                <br />
+                <span t-esc="doc.date_order" />
+              </div>
+              <div>
+                <table style="font-size: 80%;">
+                  <tr>
+                    <td style="padding-left:5px; padding-top: 10px; padding-right: 10px;">
+                      <strong><span t-field="doc.name"/> </strong>
+                    </td>
+                    <td>
+                      <span t-field="doc.partner_id"/>
+                    </td>
+                  </tr>
                   <br/>
-                  <table class="table table-striped" style="font-size: 70%;">
-                    <thead>
-                      <tr>
-                        <th scope="col"/>
-                        <th scope="col">Descripción</th>
-                        <th scope="col"/>
-                      </tr>
-                      <tr>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Importe</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <t t-foreach="doc.order_line" t-as="line">
-                        <tr>
-                          <th scope="row" colspan="3">
-                            <span t-field="line.name"/>
-                          </th>
-                        </tr>
-                        <tr>
-                          <td>
-                            <span t-field="line.product_uom_qty"/>
-                            <span t-field="line.product_uom" groups="uom.group_uom"/>
-                          </td>
-                          <td>
-                            <span t-field="line.price_unit"/>
-                          </td>
-                          <td>
-                            <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
-                            <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
-                          </td>
-                        </tr>
-                      </t>
-                      <tr>
-                        <th scope="col">Art:  
-                          <t t-esc="doc.get_total_quantity()" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/>
-                        </th>
-                        <th scope="col"/>
-                        <th scope="col">Total: 
-                          <span t-field="doc.amount_total"/>
-                        </th>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div style="font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; font-size: 60%; text-align: center; max-width: 30%;">
-                  <br/><br/>
-                  <span>Pago en una sola exhibición</span>
-                  <br/>
-                  <span>Gracias por su compra</span>
-                  <br/>
-                </div>
-                <div class="pos-center-aling"
-                  style="font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; font-size: 70%; max-width: 30%; padding: 2px;">
-                  <br/>
-                  Por este pagaré, debo y me comprometo incondicionalmente pagar la orden de Distribuciones CREDO y/o 
-                  Gregorio Soto Prieto, la cantidad estipulada en este documento en un plazo máximo de 7 días contados 
-                  a partir de la fecha impresa en el porte, el imcumplimiento generara un 3% mensual.
-                  <br/>
-                  <br/>
-                  <br/>
-                  __________________Firma__________________
-                  <br/>
-                  <br/>
-                  SOLO SE FACTURAN LOS PEDIDOS PAGADOS DEL MES EN CURSO
-                  <br/>
-                  <br/>
-                  En Cambio y/o Devoluciones deberá presentar el ticket de compra sin exceptión.
-                  <br/>
-                  <div align="center">
-                    <strong><span>*** Se Aplican Restriccione ***</span></strong>
-                  </div>
-                  
-                </div>
-              </t>
+                  <tr>
+                    <td style="padding-left:5px; padding-top: 10px; padding-right: 10px;">
+                      <strong>Vendedor: </strong>
+                    </td>
+                    <td>
+                      <span t-field="doc.route_id.partner_id"/>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+              <br/>
+              <table class="table table-striped" style="font-size: 70%;">
+                <thead>
+                  <tr>
+                    <th scope="col"/>
+                    <th scope="col">Descripción</th>
+                    <th scope="col"/>
+                  </tr>
+                  <tr>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Importe</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <t t-foreach="doc.order_line" t-as="line">
+                    <tr>
+                      <th scope="row" colspan="3">
+                        <span t-field="line.name"/>
+                      </th>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span t-field="line.product_uom_qty"/>
+                        <span t-field="line.product_uom" groups="uom.group_uom"/>
+                      </td>
+                      <td>
+                        <span t-field="line.price_unit"/>
+                      </td>
+                      <td>
+                        <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded"/>
+                        <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included"/>
+                      </td>
+                    </tr>
+                  </t>
+                  <tr>
+                    <th scope="col">Art:  
+                      <t t-esc="doc.get_total_quantity()" t-options="{&quot;widget&quot;: &quot;float&quot;, &quot;precision&quot;: 0}"/>
+                    </th>
+                    <th scope="col"/>
+                    <th scope="col">Total: 
+                      <span t-field="doc.amount_total"/>
+                    </th>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
-      </xpath>
+            <div style="font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; font-size: 60%; text-align: center; max-width: 30%;">
+              <br/><br/>
+              <span>Pago en una sola exhibición</span>
+              <br/>
+              <span>Gracias por su compra</span>
+              <br/>
+            </div>
+            <div class="pos-center-aling"
+              style="font-family: Helvetica,Monaco,Georgia,Futura,Arial,Verdana,sans-serif; font-size: 70%; max-width: 30%; padding: 2px;">
+              <br/>
+              Por este pagaré, debo y me comprometo incondicionalmente pagar la orden de Distribuciones CREDO y/o 
+              Gregorio Soto Prieto, la cantidad estipulada en este documento en un plazo máximo de 7 días contados 
+              a partir de la fecha impresa en el porte, el imcumplimiento generara un 3% mensual.
+              <br/>
+              <br/>
+              <br/>
+              __________________Firma__________________
+              <br/>
+              <br/>
+              SOLO SE FACTURAN LOS PEDIDOS PAGADOS DEL MES EN CURSO
+              <br/>
+              <br/>
+              En Cambio y/o Devoluciones deberá presentar el ticket de compra sin exceptión.
+              <br/>
+              <div align="center">
+                <strong><span>*** Se Aplican Restriccione ***</span></strong>
+              </div>
+              
+            </div>
+          </t>
+        </div>
+      </div>
     </template>
-
 
     <!-- Main template -->
     <template id="credo_template_sale_report">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t t-call="partner_delivery_routes.inherit_report_saleorder_document" t-lang="doc.partner_id.lang"/>
+                <t t-call="partner_delivery_routes.credo_report_saleorder_document" t-lang="doc.partner_id.lang"/>
             </t>
         </t>
     </template>
@@ -152,7 +149,7 @@
         name="partner_delivery_routes.credo_template_sale_report"
         file="partner_delivery_routes.credo_template_sale_report" 
         report_type="qweb-pdf"
-        print_report_name="(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)"
+        print_report_name="(object.state in ('draft', 'sent') and 'Cotización - %s' % (object.name)) or 'Order - %s' % (object.name)"
     />
 
     <record id="paperformat_saleorder_document" model="report.paperformat">
@@ -171,7 +168,7 @@
       <field name="dpi">90</field>
     </record>
 
-    <record id="sale.action_report_saleorder" model="ir.actions.report">
+    <record id="partner_delivery_routes.credo_action_sale_report" model="ir.actions.report">
         <field name="paperformat_id" ref="partner_delivery_routes.paperformat_saleorder_document" />
     </record>
 
