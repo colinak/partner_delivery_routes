@@ -4,13 +4,14 @@
 from odoo import models, api, fields, _
 from odoo.exceptions import ValidationError
 
-class AccountInvoice(models.Model):
-    _inherit = 'account.invoice'
+class AccountMove(models.Model):
+    _inherit = 'account.move'
 
     @api.depends('partner_id')
     def _compute_route(self):
-        if self.partner_id:
-            self.route_id = self.partner_id.route_id
+        for rec in self:
+            if rec.partner_id:
+                self.route_id = rec.partner_id.route_id
 
     route_id = fields.Many2one(
         'res.delivery.routes',

@@ -19,7 +19,7 @@ class DeliveryRoutes(models.Model):
         string=u"Descripción",
         help=u"Descripción de la ruta"
     )
-    partner_id = fields.Many2one(
+    delivery_man_id = fields.Many2one(
         'hr.employee',
         string="Repartidor",
         domain=[('job_id', '=', 'Repartidor')]

@@ -10,7 +10,7 @@
           <sheet>
             <group col="4">
               <field name="name" placeholder="Ej: Ruta 1"/>
-              <field name="partner_id" placeholder="Seleccione"/>
+              <field name="delivery_man_id" placeholder="Seleccione"/>
               <field name="weekdays_ids" placeholder="Seleccione" widget="many2many_tags"/>
               <field name="active"/>
             </group>
@@ -29,8 +29,8 @@
       <field name="arch" type="xml">
         <tree string="Delivery Routes">
           <field name="name" placeholder="Ej: Ruta 1"/>
-          <field name="partner_id" placeholder="Seleccione"/>
-          <field name="weekdays_ids" placeholder="Seleccione" widget="many2many_tags"/>
+          <field name="delivery_man_id" placeholder="Seleccione"/>
+          <field name="weekdays_ids" placeholder="Seleccione" widget="many2many_tags" options="{'no_create_edit': False, 'no_quick_create': False}"/>
           <field name="active"/>
         </tree>
       </field>
@@ -43,36 +43,38 @@
       <field name="arch" type="xml">
         <search string="Delivery Routes">
           <field name="name" string="Name"/>
-          <field name="partner_id" string="Repartidor"/>
+          <field name="delivery_man_id" string="Repartidor"/>
           <filter string="Archivado" name="active" domain="[('active', '=', False)]"/>
           <separator/>
           <group  expand='0' string='Group by...'>
-            <filter string='Repartidor' name="repartidor" domain="[]" context="{'group_by': 'partner_id'}"/>
+            <filter string='Repartidor' name="repartidor" domain="[]" context="{'group_by': 'delivery_man_id'}"/>
           </group>
         </search>
       </field>
     </record>
 
     <record id="action_delivery_routes" model="ir.actions.act_window">
-      <field name="name">Delivery Routes</field>
+      <field name="name">Rutas de Entrega</field>
       <field name="type">ir.actions.act_window</field>
       <field name="res_model">res.delivery.routes</field>
       <field name="view_mode">tree,form</field>
       <field name="view_id" ref="delivery_routes_view_tree" />
       <field name="help" type="html">
         <p class="o_view_nocontent_smiling_face">
-          Create New Delivery Routes
+          Crear Nueva Ruta de Entrega
+        </p>
+        <p>
+          Click en Nuevo para Crear una Ruta
         </p>
       </field>
     </record>
 
     <menuitem id="menu_delivery_route"
-      name="Delivery Routes"
+      name="Rutas de Entrega"
       parent="contacts.menu_localisation"
       sequence="4"
       action="partner_delivery_routes.action_delivery_routes"
       groups="base.group_user"
     />
-
   </data>
 </odoo>

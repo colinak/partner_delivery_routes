@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data>
-    <!-- Inherit Form view -->
-    <record id="inherit_invoice_tree" model="ir.ui.view">
-      <field name="name">inherit.account.invoice.tree</field>
-      <field name="model">account.invoice</field>
-      <field name="inherit_id" ref="account.invoice_tree"/>
+    <!-- Inherit tree view -->
+    <record id="inherit_view_out_invoice_tree" model="ir.ui.view">
+      <field name="name">inherit.account.out.invoice.tree</field>
+      <field name="model">account.move</field>
+      <field name="inherit_id" ref="account.view_out_invoice_tree"/>
       <field name="arch" type="xml">
-        <field name="partner_id" position="after">
-          <field name="route_id" 
-          />
+        <field name="invoice_date" position="before">
+          <field name="route_id" optional="show"/>
         </field>
       </field>
     </record>
 
-    <!-- Inherit Form view -->
+    <!-- Inherit search view -->
     <record id="inherit_view_account_invoice_filter" model="ir.ui.view">
-      <field name="name">inherit.sale.order.search</field>
-      <field name="model">account.invoice</field>
+      <field name="name">inherit.account.invoice.select</field>
+      <field name="model">account.move</field>
       <field name="inherit_id" ref="account.view_account_invoice_filter"/>
       <field name="arch" type="xml">
         <field name="date" position="after">
           <field name="route_id" />
         </field>
-
-        <filter name="duedate" position="after">
+        <filter name="date" position="after">
           <filter name="route" string="Ruta" domain="[]" context="{'group_by':'route_id'}" />
         </filter>
       </field>

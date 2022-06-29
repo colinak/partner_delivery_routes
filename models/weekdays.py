@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError
+from odoo import models, fields, _
 
 class Weekdays(models.Model):
     _name = 'res.weekdays'
     _description = u'Días de la semana'
-    # _order = 'name'
+    _order = 'id'
     _rec_name = 'name'
 
     name = fields.Char(
@@ -15,10 +14,10 @@ class Weekdays(models.Model):
         required=True,
         help="Nombre del día de la semana"
     )
-    partner_id = fields.Many2one(
-        'res.partner',
-        string="Partner"
-    )
+    # partner_id = fields.Many2one(
+        # 'res.partner',
+        # string="Partner"
+    # )
     day_id = fields.Many2one(
         'res.delivery.routes',
         string=u"Día"

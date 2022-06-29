@@ -9,8 +9,9 @@ class SaleOrder(models.Model):
 
     @api.onchange('partner_id')
     def _onchange_route_id(self):
-        if self.partner_id:
-            self.route_id = self.partner_id.route_id
+        for rec in self:
+            if rec.partner_id:
+                self.route_id = rec.partner_id.route_id
 
     route_id = fields.Many2one(
         'res.delivery.routes',

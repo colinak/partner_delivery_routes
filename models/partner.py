@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import models, api, fields, _
-from odoo.exceptions import ValidationError
+from odoo import models, fields, _
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
@@ -17,7 +16,7 @@ class ResPartner(models.Model):
         'Cliente',
     )    
     invoices_ids = fields.One2many(
-        'account.invoice',
+        'account.move',
         'partner_id',
         'Facturas',
         help="Selecciones las facturas"
