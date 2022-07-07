@@ -14,10 +14,6 @@ class Weekdays(models.Model):
         required=True,
         help="Nombre del día de la semana"
     )
-    # partner_id = fields.Many2one(
-        # 'res.partner',
-        # string="Partner"
-    # )
     day_id = fields.Many2one(
         'res.delivery.routes',
         string=u"Día"

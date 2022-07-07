@@ -3,3 +3,5 @@ acc_delivery_routes_admin,delivery_routes,model_res_delivery_routes,base.group_s
 acc_weekdays_admin,weekdays,model_res_weekdays,base.group_system,1,1,0,0
 acc_delivery_routes_user,delivery_routes,model_res_delivery_routes,base.group_user,1,1,1,0
 acc_weekdays_user,weekdays,model_res_weekdays,base.group_user,1,1,0,0
+acc_account_invoice_closing_admin,acc.account.invoice.closing,model_account_invoice_closing_report_wizard,base.group_system,1,1,1,1
+acc_account_invoice_closing_user,acc.account.invoice.closing,model_account_invoice_closing_report_wizard,base.group_user,1,1,1,0

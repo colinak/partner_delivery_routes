@@ -11,8 +11,8 @@
           <field name="partner_ids" widget="many2many"
             domain="[
               ('route_id', '=', route_id),
-              ('customer', '=', True),
-              ('invoices_ids.state', '=', 'open')
+              ('invoices_ids.state', '=', 'posted'),
+              ('invoices_ids.payment_state', 'in', ['not_paid', 'partial'])
             ]">
             <tree>
               <field name="display_name" string="Nombre"/>
@@ -37,8 +37,12 @@
     view_mode="form"
     target="new"/>
 
-  <menuitem action="action_account_invoice_closing_report_wizard"
+  <menuitem 
     id="menu_account_invoice_closing_report_wizard"
-    parent="account.menu_finance_receivables"/>
+    name="Corte de Ventas"
+    action="action_account_invoice_closing_report_wizard"
+    parent="account.menu_finance_receivables"
+    groups="base.group_system"
+  />
 
 </odoo>

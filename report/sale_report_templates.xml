@@ -47,7 +47,7 @@
                       <strong>Vendedor: </strong>
                     </td>
                     <td>
-                      <span t-field="doc.route_id.partner_id"/>
+                      <span t-field="doc.route_id.delivery_man_id"/>
                     </td>
                   </tr>
                 </table>

@@ -13,11 +13,11 @@ class ResPartner(models.Model):
     )
     partner_id = fields.Many2one(
         'res.partner',
-        'Cliente',
+        string='Cliente',
     )    
     invoices_ids = fields.One2many(
         'account.move',
         'partner_id',
-        'Facturas',
+        string='Facturas',
         help="Selecciones las facturas"
     )

@@ -34,7 +34,7 @@
                   </div>
                 </div>
                 <br/>
-                <table class="table table-borderless">
+                <table class="table table-sm table-borderless">
                   <t t-set="total_residual_amount" t-value="0"/>
                   <thead>
                     <tr>
@@ -46,15 +46,13 @@
                   </thead>
                   <tbody>
                     <tr t-foreach="p.invoices_ids" t-as="i">
-                      <t t-if="i.state == 'open'">
-                        <td><span t-field="i.date_invoice"/></td>
-                        <td><span t-field="i.number"/></td>
-                        <td><span t-field="i.amount_total"/></td>
-                        <td>
-                          <span t-field="i.residual"/>
-                          <t t-set="total_residual_amount" t-value="total_residual_amount+i.residual"/>
-                        </td>
-                      </t>
+                      <td><span t-field="i.date"/></td>
+                      <td><span t-field="i.name"/></td>
+                      <td><span t-field="i.amount_total"/></td>
+                      <td>
+                        <span t-field="i.amount_residual"/>
+                        <t t-set="total_residual_amount" t-value="total_residual_amount+i.amount_residual"/>
+                      </td>
                     </tr>
                   </tbody>
                   <tfoot>
